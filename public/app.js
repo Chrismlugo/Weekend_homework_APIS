@@ -12,7 +12,6 @@ const makeRequest = function(url, callback){
 
 const teamHandler = function(){
 if(this.status !== 200) return;
-debugger;
 const jsonString = this.responseText;
 const teamData = JSON.parse(jsonString);
 
@@ -37,6 +36,7 @@ if(this.status !== 200) return;
 const jsonString = this.responseText;
 const playersData = JSON.parse(jsonString);
 
+selectPlayer(playersData);
 
 };
 
@@ -44,9 +44,9 @@ const fixturesHandler = function(){
 if(this.status !== 200) return;
 
 const jsonString = this.responseText;
-debugger;
 const fixturesData = JSON.parse(jsonString);
 
+renderFixtureSelect(fixturesData);
 
 };
 
@@ -81,15 +81,10 @@ div.appendChild(select);
 
 }
 
-const PlayersList = function(team){
-
-
-}
 
 const getTeam = function(teams){
   const selected = document.querySelector('select');
   selected.addEventListener('change', function(){
-    debugger;
     let team = teams.teams[this.value];
     save(team);
     createImg(team);
@@ -99,20 +94,46 @@ const getTeam = function(teams){
 }
 
 const getPlayers = function(team){
-  debugger;
   const url = team._links.players.href;
   makeRequest(url, playersHandler);
 }
 
-const listPlayers = function(){
-  const div = getElementById('players');
-  const list = createElement('ul');
+const renderFixtureSelect = function(fixtures){
+  const fixtures = fixtures.fixtures;
+  const div = document.getElementById('fixtures');
+  const select = document.createElement('select');
+  fixtures.forEach(function(fixture, index){
+    var option = document.createElement('option');
+    option.innerText = "Matchday " + fixture.matchday;
+    option.value = index;
+    select.appendChild(option);
+  });
+div.appendChild(select);
+}
 
+const selectPlayer = function(players){
+  players = players.players;
+  debugger;
+  const div = document.getElementById('players');
+  clearContent(div);
+  const select = document.createElement('select');
+  players.forEach(function(player){
+    const option = createPlayerInfo(player);
+    select.appendChild(option);
+  })
+  div.appendChild(select);
+
+}
+
+const createPlayerInfo = function(player){
+  const option = document.createElement('option');
+  option.innerText = player.name;
+  return option;
 }
 
 const getFixtures = function(team){
   const url = team._links.fixtures.href;
-  makeRequest(url, playersHandler);
+  makeRequest(url, fixturesHandler);
 }
 const clearContent = function(node){
   while (node.hasChildNodes()) {

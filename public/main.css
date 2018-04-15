@@ -1,14 +1,49 @@
 body{
+  background-color:rgb(39, 106, 254);
+  margin:0;
+  width:100%;
+  height:100%;
+  background-image: url("./footbal.jpg");
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: contain;
+}
+
+select{
+  display: flex;
+}
+
+h1{
+  background-color: rgba(102, 3, 22, 0.63);
+}
+
+#main{
+  display: flex;
+  justify-content: center;
+}
+#league-table{
+  display: flex;
 
 }
 
-#league-table{
+ul{
+  list-style-type: none;
+
+}
+
+#players{
   display: flex;
-  
+
+}
+
+#team-crest{
+display: flex;
+justify-content: center;
 }
 
 img {
-  max-height: 100px;
-  max-width: 100px;
+  max-height: 200px;
+  max-width: 200px;
   padding: 0px 10px;
 }
