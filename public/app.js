@@ -37,7 +37,7 @@ const jsonString = this.responseText;
 const playersData = JSON.parse(jsonString);
 
 selectPlayer(playersData);
-
+getPlayer(playersData);
 };
 
 const fixturesHandler = function(){
@@ -46,7 +46,7 @@ if(this.status !== 200) return;
 const jsonString = this.responseText;
 const fixturesData = JSON.parse(jsonString);
 
-renderFixtureSelect(fixturesData);
+// renderFixtureSelect(fixturesData);
 
 };
 
@@ -93,23 +93,47 @@ const getTeam = function(teams){
   })
 }
 
+const getPlayer = function(players){
+  const selected = document.querySelector('select');
+  selected.addEventListener('change', function(){
+    let player = players.players[this.value];
+    save(player);
+    playerBio(player);
+  })
+}
+
+const playerBio = function(player){
+  const div = document.getElementById('main');
+  const list = document.createElement('ul');
+  const nameLi = document.createElement('li');
+  nameLi.innerText = player.name;
+  const positionLi = document.createElement('li');
+  positionLi.innerText = player.position;
+  const nationLi = document.createElement('li');
+  nationLi.innerText = player.nationality;
+  list.appendChild(nameLi);
+  list.appendChild(positionLi);
+  list.appendChild(nationLi);
+  div.appendChild(list);
+}
+
 const getPlayers = function(team){
   const url = team._links.players.href;
   makeRequest(url, playersHandler);
 }
 
-const renderFixtureSelect = function(fixtures){
-  const fixtures = fixtures.fixtures;
-  const div = document.getElementById('fixtures');
-  const select = document.createElement('select');
-  fixtures.forEach(function(fixture, index){
-    var option = document.createElement('option');
-    option.innerText = "Matchday " + fixture.matchday;
-    option.value = index;
-    select.appendChild(option);
-  });
-div.appendChild(select);
-}
+// const renderFixtureSelect = function(fixtures){
+//   const fixtures = fixtures.fixtures;
+//   const div = document.getElementById('fixtures');
+//   const select = document.createElement('select');
+//   fixtures.forEach(function(fixture, index){
+//     var option = document.createElement('option');
+//     option.innerText = "Matchday " + fixture.matchday;
+//     option.value = index;
+//     select.appendChild(option);
+//   });
+// div.appendChild(select);
+// }
 
 const selectPlayer = function(players){
   players = players.players;
