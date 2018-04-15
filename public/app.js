@@ -103,7 +103,8 @@ const getPlayer = function(players){
 }
 
 const playerBio = function(player){
-  const div = document.getElementById('main');
+  const div = document. getElementById('bio');
+  clearContent(div);
   const list = document.createElement('ul');
   const nameLi = document.createElement('li');
   nameLi.innerText = player.name;
