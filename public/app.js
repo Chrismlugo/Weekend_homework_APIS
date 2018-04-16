@@ -142,8 +142,9 @@ const selectPlayer = function(players){
   const div = document.getElementById('players');
   clearContent(div);
   const select = document.createElement('select');
-  players.forEach(function(player){
+  players.forEach(function(player, index){
     const option = createPlayerInfo(player);
+    option.value = index;
     select.appendChild(option);
   })
   div.appendChild(select);
