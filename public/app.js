@@ -46,7 +46,7 @@ if(this.status !== 200) return;
 const jsonString = this.responseText;
 const fixturesData = JSON.parse(jsonString);
 
-// renderFixtureSelect(fixturesData);
+renderFixtureSelect(fixturesData);
 
 };
 
@@ -94,7 +94,7 @@ const getTeam = function(teams){
 }
 
 const getPlayer = function(players){
-  const selected = document.querySelector('select');
+  const selected = document.querySelector('.player-select');
   selected.addEventListener('change', function(){
     let player = players.players[this.value];
     save(player);
@@ -123,18 +123,18 @@ const getPlayers = function(team){
   makeRequest(url, playersHandler);
 }
 
-// const renderFixtureSelect = function(fixtures){
-//   const fixtures = fixtures.fixtures;
-//   const div = document.getElementById('fixtures');
-//   const select = document.createElement('select');
-//   fixtures.forEach(function(fixture, index){
-//     var option = document.createElement('option');
-//     option.innerText = "Matchday " + fixture.matchday;
-//     option.value = index;
-//     select.appendChild(option);
-//   });
-// div.appendChild(select);
-// }
+const renderFixtureSelect = function(fixtures){
+  const fixtures = fixtures.fixtures;
+  const div = document.getElementById('fixtures');
+  const select = document.createElement('select');
+  fixtures.forEach(function(fixture, index){
+    var option = document.createElement('option');
+    option.innerText = "Matchday " + fixture.matchday;
+    option.value = index;
+    select.appendChild(option);
+  });
+div.appendChild(select);
+}
 
 const selectPlayer = function(players){
   players = players.players;
@@ -142,6 +142,7 @@ const selectPlayer = function(players){
   const div = document.getElementById('players');
   clearContent(div);
   const select = document.createElement('select');
+  select.classList.add('player-select');
   players.forEach(function(player, index){
     const option = createPlayerInfo(player);
     option.value = index;
